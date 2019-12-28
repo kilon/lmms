@@ -1,5 +1,5 @@
 /*
- * TripleOscillator.h - declaration of class TripleOscillator a powerful
+ * LazerHawk.h - declaration of class LazerHawk a powerful
  *                      instrument-plugin with 3 oscillators
  *
  * Copyright (c) 2004-2014 Tobias Doerffel <tobydox/at/users.sourceforge.net>
@@ -72,8 +72,8 @@ private:
 	float m_phaseOffsetLeft;
 	float m_phaseOffsetRight;
 
-	friend class TripleOscillator;
-	friend class TripleOscillatorView;
+	friend class LazerHawk;
+	friend class LazerHawkView;
 
 
 private slots:
@@ -90,12 +90,12 @@ private slots:
 
 
 
-class TripleOscillator : public Instrument
+class LazerHawk : public Instrument
 {
 	Q_OBJECT
 public:
-	TripleOscillator( InstrumentTrack * _track );
-	virtual ~TripleOscillator();
+	LazerHawk( InstrumentTrack * _track );
+	virtual ~LazerHawk();
 
 	virtual void playNote( NotePlayHandle * _n,
 						sampleFrame * _working_buffer );
@@ -130,18 +130,18 @@ private:
 	} ;
 
 
-	friend class TripleOscillatorView;
+	friend class LazerHawkView;
 
 } ;
 
 
 
-class TripleOscillatorView : public InstrumentViewFixedSize
+class LazerHawkView : public InstrumentViewFixedSize
 {
 	Q_OBJECT
 public:
-	TripleOscillatorView( Instrument * _instrument, QWidget * _parent );
-	virtual ~TripleOscillatorView();
+	LazerHawkView( Instrument * _instrument, QWidget * _parent );
+	virtual ~LazerHawkView();
 
 
 private:

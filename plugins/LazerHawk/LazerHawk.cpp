@@ -1,5 +1,5 @@
 /*
- * TripleOscillator.cpp - powerful instrument with three oscillators
+ * LazerHawk.cpp - powerful instrument with three oscillators
  *
  * Copyright (c) 2004-2014 Tobias Doerffel <tobydox/at/users.sourceforge.net>
  *
@@ -27,7 +27,7 @@
 #include <QBitmap>
 #include <QPainter>
 
-#include "TripleOscillator.h"
+#include "LazerHawk.h"
 #include "AutomatableButton.h"
 #include "debug.h"
 #include "Engine.h"
@@ -45,10 +45,10 @@
 extern "C"
 {
 
-Plugin::Descriptor PLUGIN_EXPORT tripleoscillator_plugin_descriptor =
+Plugin::Descriptor PLUGIN_EXPORT LazerHawk_plugin_descriptor =
 {
 	STRINGIFY( PLUGIN_NAME ),
-	"TripleOscillator",
+	"LazerHawk",
 	QT_TRANSLATE_NOOP( "pluginBrowser",
 				"Three powerful oscillators you can modulate "
 				"in several ways" ),
@@ -209,8 +209,8 @@ void OscillatorObject::updatePhaseOffsetRight()
 
  
 
-TripleOscillator::TripleOscillator( InstrumentTrack * _instrument_track ) :
-	Instrument( _instrument_track, &tripleoscillator_plugin_descriptor )
+LazerHawk::LazerHawk( InstrumentTrack * _instrument_track ) :
+	Instrument( _instrument_track, &LazerHawk_plugin_descriptor )
 {
 	for( int i = 0; i < NUM_OF_OSCILLATORS; ++i )
 	{
@@ -225,14 +225,14 @@ TripleOscillator::TripleOscillator( InstrumentTrack * _instrument_track ) :
 
 
 
-TripleOscillator::~TripleOscillator()
+LazerHawk::~LazerHawk()
 {
 }
 
 
 
 
-void TripleOscillator::saveSettings( QDomDocument & _doc, QDomElement & _this )
+void LazerHawk::saveSettings( QDomDocument & _doc, QDomElement & _this )
 {
 	for( int i = 0; i < NUM_OF_OSCILLATORS; ++i )
 	{
@@ -261,7 +261,7 @@ void TripleOscillator::saveSettings( QDomDocument & _doc, QDomElement & _this )
 
 
 
-void TripleOscillator::loadSettings( const QDomElement & _this )
+void LazerHawk::loadSettings( const QDomElement & _this )
 {
 	for( int i = 0; i < NUM_OF_OSCILLATORS; ++i )
 	{
@@ -287,15 +287,15 @@ void TripleOscillator::loadSettings( const QDomElement & _this )
 
 
 
-QString TripleOscillator::nodeName() const
+QString LazerHawk::nodeName() const
 {
-	return( tripleoscillator_plugin_descriptor.name );
+	return( LazerHawk_plugin_descriptor.name );
 }
 
 
 
 
-void TripleOscillator::playNote( NotePlayHandle * _n,
+void LazerHawk::playNote( NotePlayHandle * _n,
 						sampleFrame * _working_buffer )
 {
 	if( _n->totalFramesPlayed() == 0 || _n->m_pluginData == NULL )
@@ -372,7 +372,7 @@ void TripleOscillator::playNote( NotePlayHandle * _n,
 
 
 
-void TripleOscillator::deleteNotePluginData( NotePlayHandle * _n )
+void LazerHawk::deleteNotePluginData( NotePlayHandle * _n )
 {
 	delete static_cast<Oscillator *>( static_cast<oscPtr *>(
 						_n->m_pluginData )->oscLeft );
@@ -384,15 +384,15 @@ void TripleOscillator::deleteNotePluginData( NotePlayHandle * _n )
 
 
 
-PluginView * TripleOscillator::instantiateView( QWidget * _parent )
+PluginView * LazerHawk::instantiateView( QWidget * _parent )
 {
-	return new TripleOscillatorView( this, _parent );
+	return new LazerHawkView( this, _parent );
 }
 
 
 
 
-void TripleOscillator::updateAllDetuning()
+void LazerHawk::updateAllDetuning()
 {
 	for( int i = 0; i < NUM_OF_OSCILLATORS; ++i )
 	{
@@ -417,7 +417,7 @@ public:
 // 82, 109
 
 
-TripleOscillatorView::TripleOscillatorView( Instrument * _instrument,
+LazerHawkView::LazerHawkView( Instrument * _instrument,
 							QWidget * _parent ) :
 	InstrumentViewFixedSize( _instrument, _parent )
 {
@@ -679,16 +679,16 @@ TripleOscillatorView::TripleOscillatorView( Instrument * _instrument,
 
 
 
-TripleOscillatorView::~TripleOscillatorView()
+LazerHawkView::~LazerHawkView()
 {
 }
 
 
 
 
-void TripleOscillatorView::modelChanged()
+void LazerHawkView::modelChanged()
 {
-	TripleOscillator * t = castModel<TripleOscillator>();
+	LazerHawk * t = castModel<LazerHawk>();
 	m_mod1BtnGrp->setModel( &t->m_osc[0]->m_modulationAlgoModel );
 	m_mod2BtnGrp->setModel( &t->m_osc[1]->m_modulationAlgoModel );
 
@@ -725,7 +725,7 @@ extern "C"
 // necessary for getting instance out of shared lib
 PLUGIN_EXPORT Plugin * lmms_plugin_main( Model* model, void * )
 {
-	return new TripleOscillator( static_cast<InstrumentTrack *>( model ) );
+	return new LazerHawk( static_cast<InstrumentTrack *>( model ) );
 }
 
 }
